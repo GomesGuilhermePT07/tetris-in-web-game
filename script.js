@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPosition = 4;
     let currentRotation = 0;
     let score = 0;
-    let timerId;
+    let timerId;   
 
     // Criar as células da grid
     for (let i = 0; i < gridSize; i++) {
@@ -55,22 +55,28 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const tetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino];
+    const colors = ['cyan', 'blue', 'orange', 'yellow', 'green', 'purple', 'red'];
     let random = Math.floor(Math.random() * tetrominoes.length);
+    let currentColor = colors[Math.floor(Math.random() * colors.length)];
     let current = tetrominoes[random][currentRotation];
 
     // Desenhar o tetromino
     function draw() {
         current.forEach(index => {
-            squares[currentPosition + index].classList.add('tetromino');
+            const square = squares[currentPosition + index];
+            square.classList.add('tetromino');
+            square.style.backgroundColor = currentColor;
         });
-    }
+    }    
 
     // Apagar o tetromino
     function undraw() {
         current.forEach(index => {
-            squares[currentPosition + index].classList.remove('tetromino');
+            const square = squares[currentPosition + index];
+            square.classList.remove('tetromino');
+            square.style.backgroundColor = '';
         });
-    }
+    }    
 
     // Mover para baixo
     function moveDown() {
@@ -93,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Novo tetromino
             random = Math.floor(Math.random() * tetrominoes.length);
             current = tetrominoes[random][0];
+            currentColor = colors[Math.floor(Math.random() * colors.length)];
             currentPosition = 4;
             draw();
             addScore();

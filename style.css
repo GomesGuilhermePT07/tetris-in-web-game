@@ -83,10 +83,6 @@ body{
     border: 1px solid var(--cell-border);
 }
 
-.tetromino{
-    background-color: var(--tetromino-color);
-}
-
 .info{
     display: flex;
     flex-direction: column;
