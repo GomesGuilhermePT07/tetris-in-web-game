@@ -238,18 +238,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (row.every(index => squares[index].classList.contains('taken'))) {
                 score += 10;
                 scoreDisplay.textContent = score;
-
+    
+                // Remove as classes e estilos da linha completa
                 row.forEach(index => {
-                    squares[index].classList.remove('taken');
-                    squares[index].classList.remove('tetromino');
+                    squares[index].classList.remove('taken', 'tetromino');
+                    squares[index].style.backgroundColor = '';
                 });
-
-                const removed = squares.splice(i, width);
-                squares = removed.concat(squares);
+    
+                // Remove os elementos da linha da array e insere no início
+                const removedSquares = squares.splice(i, width);
+                squares.unshift(...removedSquares);
+    
+                // Re-anexar os elementos na ordem atualizada ao DOM
                 squares.forEach(cell => grid.appendChild(cell));
             }
         }
-    }
+    }       
 
     // Fim de jogo
     function gameOver() {
