@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 squares.forEach(cell => grid.appendChild(cell));
             }
         }
-    }       
+    }
 
     // Fim de jogo
     function gameOver() {
