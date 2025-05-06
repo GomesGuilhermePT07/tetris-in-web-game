@@ -147,12 +147,90 @@ document.addEventListener('DOMContentLoaded', () => {
     // Rodar o tetromino
     function rotate() {
         undraw();
-        currentRotation++;
-        if (currentRotation === current.length) currentRotation = 0;
-        current = tetrominoes[random][currentRotation];
-        draw();
+    
+        const nextRotation = (currentRotation + 1) % tetrominoes[random].length;
+        const nextPattern = tetrominoes[random][nextRotation];
+    
+        // Tenta rotação na posição atual
+        if (canPlaceAt(currentPosition, nextPattern)) {
+            currentRotation = nextRotation;
+            current = nextPattern;
+            draw();
+            return;
+        }
+    
+        // Tenta Wall Kick para a esquerda
+        if (canPlaceAt(currentPosition - 1, nextPattern)) {
+            currentPosition -= 1;
+            currentRotation = nextRotation;
+            current = nextPattern;
+            draw();
+            return;
+        }
+    
+        // Tenta Wall Kick para a direita
+        if (canPlaceAt(currentPosition + 1, nextPattern)) {
+            currentPosition += 1;
+            currentRotation = nextRotation;
+            current = nextPattern;
+            draw();
+            return;
+        }
+    
+        // Tenta dois para a esquerda
+        if (canPlaceAt(currentPosition - 2, nextPattern)) {
+            currentPosition -= 2;
+            currentRotation = nextRotation;
+            current = nextPattern;
+            draw();
+            return;
+        }
+    
+        // Tenta dois para a direita
+        if (canPlaceAt(currentPosition + 2, nextPattern)) {
+            currentPosition += 2;
+            currentRotation = nextRotation;
+            current = nextPattern;
+            draw();
+            return;
+        }
+    
+        draw(); // Não rodou, apenas redesenha
     }
 
+    function canPlaceAt(pos, shape) {
+        return shape.every(index => {
+            const target = pos + index;
+            const col = (target % width);
+            return (
+                col >= 0 &&
+                col < width &&
+                target >= 0 &&
+                target < width * height &&
+                !squares[target].classList.contains('taken')
+            );
+        });
+    }    
+    
+    // Função para ver se pode rodar
+    function canRotate(pos, pattern) {
+        return pattern.every(index => {
+            const newIndex = pos + index;
+    
+            // Verifica se está fora da grid horizontalmente
+            const col = (pos + index) % width;
+            if (col < 0 || col >= width) return false;
+    
+            // Verifica se está dentro dos limites da grid e não ocupa espaço "taken"
+            return (
+                newIndex >= 0 &&
+                newIndex < width * height &&
+                !squares[newIndex].classList.contains('taken')
+            );
+        });
+    }
+    
+    
     // Mostrar pontuação
     function addScore() {
         for (let i = 0; i < gridSize; i += width) {
