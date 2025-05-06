@@ -82,7 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Verificar se chegou ao fim
     function freeze() {
-        if (current.some(index => squares[currentPosition + index + width]?.classList.contains('taken'))) {
+        if (
+            current.some(index => {
+                const nextIndex = currentPosition + index + width;
+                return nextIndex >= width * height || squares[nextIndex].classList.contains('taken');
+            })
+        ) {
             current.forEach(index => squares[currentPosition + index].classList.add('taken'));
 
             // Novo tetromino
