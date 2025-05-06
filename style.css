@@ -1,6 +1,16 @@
+:root{
+    --bg-color: #222;
+    --wm-strong-color: #a259ff;
+}
+
 *{
     margin: 0;
     padding: 0;
+    font-family: 'Gill Sans MT';
+}
+
+body{
+    background-color: var(--bg-color);
 }
 
 .logo-png{
@@ -29,7 +39,7 @@
 }
 
 .water-mark strong{
-    color: #a259ff;
+    color: var(--wm-strong-color);
 }
 
 .water-mark img{
