@@ -1,16 +1,27 @@
 :root{
     --bg-color: #222;
+    --color-white: #fff;
     --wm-strong-color: #a259ff;
+    --grid-bg: #333;
+    --grid-border: #555;
+    --cell-border: #222;
+    --tetromino-color: cyan;
+    --button-bg: #00bcd4;
+    --button-hover-bg: #0097a7;
 }
 
 *{
     margin: 0;
     padding: 0;
     font-family: 'Gill Sans MT';
+    box-sizing: border-box;
 }
 
 body{
     background-color: var(--bg-color);
+    color: var(--color-white);
+    text-align: center;
+    padding: 20px;
 }
 
 .logo-png{
@@ -47,4 +58,54 @@ body{
     height: 20px;
     opacity: 0.5;
     margin-bottom: -0.2rem;
+}
+
+.tetris-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(11, 30px);
+    grid-template-rows: repeat(17, 30px);
+    background-color: var(--grid-bg);
+    border: 2px solid var(--grid-border);
+}
+
+.grid div{
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--cell-border);
+}
+
+.tetromino{
+    background-color: var(--tetromino-color);
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem;
+    gap: 33rem;
+    margin-top: -36rem;
+}
+
+button{
+    padding: 5px 20px;
+    background-color: var(--button-bg);
+    color: var(--color-white);
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button:hover{
+    background-color: var(--button-hover-bg);
 }
